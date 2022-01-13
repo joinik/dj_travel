@@ -11,7 +11,10 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from apps.users.models import User, UserProfile
+from travel_dj.settings import G
 from utils.jwt_util import _generate_tokens
+from utils.middlewares import login_required
+
 
 class UserAuthorizeView(APIView):
 
@@ -38,11 +41,6 @@ class UserAuthorizeView(APIView):
         # 3.3用户发过来的对比 redis_image_code是二进制 需要decode
         # if redis_sms_code.decode().lower() != sms_code.lower():
         #     return Response({'message': "短信验证码输入错误", 'data': None}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
 
 
         # 显式的开启一个事务
@@ -81,11 +79,25 @@ class UserAuthorizeView(APIView):
 
         return Response({"message": "OK", "data": {'token': token, 'refresh_token': refresh_token}}, status=status.HTTP_201_CREATED)
 
-    # def put(self):
-    #     if g.is_refresh:
-    #         token, refresh_token = _generate_tokens(g.user_id, False)
-    #         return {'token': token}, 201
-    #     else:
-    #         return {'message': "Invalid refreshToken", 'data': None}, 403
+    def put(self, request):
+        if G["is_refresh"]:
+            token, refresh_token = _generate_tokens(G["user_id"], False)
+            return Response({'token': token}, status=status.HTTP_201_CREATED)
+        else:
+            return Response({'message': "Invalid refreshToken", 'data': None}, status=status.HTTP_403_FORBIDDEN)
+
+
+
+
+
+class UserInfoView(APIView):
+    """个人信息"""
+    @login_required
+    def get(self,request):
+
+        user_id = G.get('user_id')
+        user = User.objects.filter(id=user_id).first()
+        return Response({"message": "OK", "data": user.to_dict()})
+
 
 

@@ -7,7 +7,7 @@
 # register_converter(PhoneConverter, 'phone')
 from django.urls import path
 
-from apps.users.views import UserAuthorizeView
+from apps.users.views import UserAuthorizeView, UserInfoView
 
 urlpatterns = [
     # # 注册用户
@@ -18,7 +18,7 @@ urlpatterns = [
     # # # 刷新token
     # # path('refresh/', refresh_jwt_token),
     # # 用户个人信息
-    # path('info/', UserInfoView.as_view()),
+    path('user', UserInfoView.as_view()),
 
 
 ]
