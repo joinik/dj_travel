@@ -22,3 +22,12 @@ class Area(models.Model):
     def __str__(self):
         return self.name
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'parent': self.parent.name if self.parent else self.parent,
+            'subs': self.subs,
+            'city_level': self.city_level
+        }
+
