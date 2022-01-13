@@ -25,7 +25,6 @@ class MsmCodeView(APIView):
         # pl.get('send_flag_%s' % mobile)
         # send_flag = pl.execute()[0]  # 元组
 
-
         # 3.如果取到了标记,说明此手机号频繁发短信
         if send_flag:
             return Response({'message': '手机频繁发送短信'}, status=status.HTTP_400_BAD_REQUEST)
@@ -57,4 +56,4 @@ class MsmCodeView(APIView):
         print('>>>>>异步短信', sms_code)
 
         # 8. 响应
-        return Response({'message': 'ok'})
+        return Response({'message': 'OK'})

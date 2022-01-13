@@ -49,7 +49,7 @@ class UserProfile(models.Model):
     user = models.ForeignKey("User", null=False, on_delete=models.CASCADE, verbose_name='用户ID')
     sex_choice = ((0, '男'), (1, '女'))
     sex = models.SmallIntegerField(choices=sex_choice, default=0, verbose_name='性别')
-    age = models.IntegerField(verbose_name='年龄')
+    age = models.IntegerField(verbose_name='年龄',default=0)
     email = models.CharField(max_length=20, verbose_name='邮箱')
     email_active = models.BooleanField(default=False, verbose_name='邮箱验证状态')
 

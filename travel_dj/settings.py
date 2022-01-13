@@ -226,15 +226,15 @@ CORS_ALLOW_CREDENTIALS = True  # 允许携带cookie
 
 
 # jwt 配置
-REST_FRAMEWORK = {
-
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
-}
-
+# REST_FRAMEWORK = {
+#
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+#         'rest_framework.authentication.SessionAuthentication',
+#         'rest_framework.authentication.BasicAuthentication',
+#     ),
+# }
+#
 # import datetime
 # JWT_AUTH = {
 #     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
@@ -245,3 +245,8 @@ REST_FRAMEWORK = {
 # }
 
 
+JWT_EXPIRE_DAYS = 14  # refreshtoken 过期时间
+JWT_EXPIRE_HOURS = 2  # token 过期时间
+
+# 定义一个全局变量
+G = {}
